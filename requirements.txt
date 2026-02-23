@@ -1,0 +1,6 @@
+fastapi[standard]
+pytest
+requests
+sqlmodel
+pydantic
+pydantic-settings
