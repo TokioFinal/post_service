@@ -32,8 +32,6 @@ def get_user_posts(session: SessionDep, user: str = Depends(verify_token)):
 
 @router.get("/posts/{author}")
 def get_author_posts(session: SessionDep, author: str ):
-    print("author####################################")
-    print(author)
     posts = Post.get_posts_by_author(db=session, author=author)
     return posts
 
@@ -47,7 +45,6 @@ def get_posts(session: SessionDep ):
 def delete_post(session: SessionDep, post_id: int, user: str = Depends(verify_token)):
     post = Post.find_by_id(db=session, id=post_id)
     if not post:
-        print("post not found")
         raise NotFoundException(detail="Post not found!")
     
     if post.author != user:
