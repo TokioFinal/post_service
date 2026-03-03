@@ -34,8 +34,6 @@ class Post(PostBase, table=True):
         return result.all()
     
     
-    
-
 class PostCreate(PostBase):
     pass
 
