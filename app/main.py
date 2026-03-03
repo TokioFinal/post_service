@@ -1,7 +1,5 @@
-from typing import Annotated
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
-from fastapi.security import OAuth2PasswordBearer
 from app.database.config import create_db_and_tables
 from app.routers import posts
 from app.config import settings
