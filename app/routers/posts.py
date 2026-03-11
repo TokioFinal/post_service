@@ -26,8 +26,8 @@ def create_post(session: SessionDep, data: PostCreate, user: str = Depends(verif
 
 #######################################Get Posts######################################
 @router.get("/user_posts", response_model=list[PostPublic]) 
-def get_user_posts(session: SessionDep, user: str = Depends(verify_token)):
-    posts = Post.get_posts_by_author(db=session, author=user)
+def get_user_posts(session: SessionDep):
+    posts = Post.get_posts_by_author(db=session, author="user")
     return posts
 
 @router.get("/posts/{author}")
