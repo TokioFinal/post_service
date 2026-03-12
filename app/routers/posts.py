@@ -17,7 +17,7 @@ def create_post(session: SessionDep, data: PostCreate):
         raise BadRequestException(detail="Author cannot create posts with the same title")
 
     post_data = data.dict()
-    post_data["author"] = user 
+    post_data["author"] = "user" 
     post = Post(**post_data)
     session.add(post)
     session.commit()

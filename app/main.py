@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from app.database.config import create_db_and_tables
 from app.routers import posts
@@ -20,6 +20,16 @@ if settings.ENABLE_MONOTORING:
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+
+@app.middleware("http")
+async def log_reuqests(request: Request, call_next):
+    print("#### Requests headers #######")
+    print(request.headers)
+    print("#### Requests json #######")
+    print(await request.json())
+    response = await call_next(request)
+    return response
+
 
 @app.get('/healthz')
 def healthz():
