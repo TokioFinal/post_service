@@ -21,16 +21,6 @@ if settings.ENABLE_MONOTORING:
 def on_startup():
     create_db_and_tables()
 
-@app.middleware("http")
-async def log_reuqests(request: Request, call_next):
-    print("#### Requests headers #######")
-    print(request.headers)
-    print("#### Requests json #######")
-    print(await request.json())
-    response = await call_next(request)
-    return response
-
-
 @app.get('/healthz')
 def healthz():
     return JSONResponse( status_code=200 ,content = {"message": "Everything okay"})

@@ -11,13 +11,13 @@ SessionDep = Annotated[Session, Depends(get_session)]
 router = APIRouter()
 #######################################Create Post######################################
 @router.post("/post",response_model=PostPublic)
-def create_post(session: SessionDep, data: PostCreate):
-    posts=Post.find_by_title(db=session, author="user",title=data.title)
+def create_post(session: SessionDep, data: PostCreate, user: str = Depends(verify_token)):
+    posts=Post.find_by_title(db=session, author=user,title=data.title)
     if posts:
         raise BadRequestException(detail="Author cannot create posts with the same title")
 
     post_data = data.dict()
-    post_data["author"] = "user" 
+    post_data["author"] = user 
     post = Post(**post_data)
     session.add(post)
     session.commit()
@@ -26,8 +26,8 @@ def create_post(session: SessionDep, data: PostCreate):
 
 #######################################Get Posts######################################
 @router.get("/user_posts", response_model=list[PostPublic]) 
-def get_user_posts(session: SessionDep):
-    posts = Post.get_posts_by_author(db=session, author="user")
+def get_user_posts(session: SessionDep, user: str = Depends(verify_token)):
+    posts = Post.get_posts_by_author(db=session, author=user)
     return posts
 
 @router.get("/posts/{author}")
