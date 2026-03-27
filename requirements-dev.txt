@@ -2,8 +2,6 @@ fastapi[standard]
 pytest
 requests
 sqlmodel
-pydantic
-pydantic-settings
 opentelemetry-sdk
 opentelemetry-api
 opentelemetry-exporter-otlp-proto-grpc
