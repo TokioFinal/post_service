@@ -1,5 +1,5 @@
 fastapi[standard]
-pytest
+requests
 sqlmodel
 opentelemetry-sdk
 opentelemetry-api
